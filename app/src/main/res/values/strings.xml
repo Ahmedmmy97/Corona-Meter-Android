@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Corona Meter</string>
+    <string name="ad_app_id">ca-app-pub-7038787403547669~4223233466</string>
+    <string name="banner_ad_unit_id">ca-app-pub-7038787403547669/1765618759</string>
+    <string name="interstitial_ad_unit_id">ca-app-pub-7038787403547669/5125251599</string>
+
 </resources>

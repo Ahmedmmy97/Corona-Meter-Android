@@ -20,7 +20,12 @@ import android.widget.ProgressBar;
 import android.widget.ScrollView;
 
 import com.android.volley.VolleyError;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.RequestConfiguration;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements FetchListener{
@@ -32,10 +37,13 @@ public class MainActivity extends AppCompatActivity implements FetchListener{
     EditText search;
     SwipeRefreshLayout swipeRefreshLayout;
     ProgressBar progressBar;
+    InterstitialAd mInterstitialAd;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        MobileAds.initialize(this,getResources().getString(R.string.ad_app_id));
+        loadInstAd();
         gridView = findViewById(R.id.recycler);
         main = findViewById(R.id.main);
         search = findViewById(R.id.search);
@@ -66,6 +74,23 @@ public class MainActivity extends AppCompatActivity implements FetchListener{
         });
         DataHelper.getJsonArray(main,this,this);
     }
+    private void loadInstAd(){
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId(getResources().getString(R.string.interstitial_ad_unit_id));
+      /*  RequestConfiguration config = new RequestConfiguration.Builder().
+                setTestDeviceIds(Arrays.asList("487A6CB7496793ADD03FA65F083283E7")).build();
+        MobileAds.setRequestConfiguration(config);*/
+
+    }
+
+    private void requestNewInterstitial() {
+
+        AdRequest adRequest = new AdRequest.Builder().build();
+
+
+        mInterstitialAd.loadAd(adRequest);
+        mInterstitialAd.show();
+    }
     public void UpdateData(List<Country> data){
         adapter = new Adapter(this,data);
         gridView.setAdapter(adapter);
@@ -84,6 +109,7 @@ public class MainActivity extends AppCompatActivity implements FetchListener{
                 Intent intent = new Intent(MainActivity.this,DetailsActivity.class);
                 intent.putExtra("id",l);
                 startActivity(intent);
+                requestNewInterstitial();
             }
         });
 
