@@ -55,12 +55,12 @@ public class DetailsActivity extends AppCompatActivity {
     }
 
     private void BindData(Country country){
-        totalCases.setText(country.getTotal());
-        newCases.setText(country.getNew());
-        totalDeaths.setText(country.getDeath());
-        newDeaths.setText(country.getNewDeath());
-        totalRecovered.setText(country.getRecovered());
-        activeCases.setText(country.getActive());
+        totalCases.setText(country.getTotal().equals("")?"0":country.getTotal());
+        newCases.setText(country.getNew().equals("")?"+0":country.getNew());
+        totalDeaths.setText(country.getDeath().equals("")?"0":country.getDeath());
+        newDeaths.setText(country.getNewDeath().equals("")?"+0":country.getNewDeath());
+        totalRecovered.setText(country.getRecovered().equals("")?"0":country.getRecovered());
+        activeCases.setText(country.getActive().equals("")?"0":country.getActive());
         name.setText(country.getName());
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm a");
         String strDate= formatter.format(DataHelper.lastUpdate);

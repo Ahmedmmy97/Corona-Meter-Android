@@ -83,6 +83,16 @@ public class MainActivity extends AppCompatActivity implements FetchListener{
 
     }
 
+    @Override
+    public void onBackPressed() {
+        if (search.getText().toString().equals(""))
+            moveTaskToBack(true);
+        else {
+            search.setText("");
+            hideKeyboard(this);
+        }
+    }
+
     private void requestNewInterstitial() {
 
         AdRequest adRequest = new AdRequest.Builder().build();
